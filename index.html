@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="calculatorCSS.css">
+    <title>Title</title>
+</head>
+<body>
+    <div id="container">
+        <div id="top-screen">
+            <input type="text" id="screen-show" disabled>
+        </div>
+        <div id="keys-grid">
+            <button class="calculator-btn" value="+">+</button>
+            <button class="calculator-btn" value="-">-</button>
+            <button class="calculator-btn" value="*">*</button>
+            <button class="calculator-btn" value="/">/</button>
+            <button class="calculator-btn" value="1">1</button>
+            <button class="calculator-btn" value="2">2</button>
+            <button class="calculator-btn" value="3">3</button>
+            <button class="calculator-btn" value="4">4</button>
+            <button class="calculator-btn" value="5">5 </button>
+            <button class="calculator-btn" value="6">6</button>
+            <button class="calculator-btn" value="7">7</button>
+            <button class="calculator-btn" value="8">8</button>
+            <button class="calculator-btn" value="9">9</button>
+            <button class="calculator-btn" value="0">0</button>
+            <button class="calculator-btn" value=".">.</button>
+            <button id="equal-btn" value="=">=</button>
+            <button id="ac-btn" value="ac">AC</button>
+        </div>
+    </div>
+
+<script>
+    const keys = document.querySelector("#keys-grid");
+    let displayScreen = document.getElementById("screen-show");
+
+    keys.addEventListener("click", (event)=>{
+        let clickedBtn = event.target;
+        if (!clickedBtn.matches("button")){
+            return false;
+        }
+
+        if (clickedBtn.id=="ac-btn"){
+            displayScreen.value="";
+        }else if (clickedBtn.id=="equal-btn"){
+            try{
+                if (eval(displayScreen.value)==undefined){
+                    displayScreen.value="";
+                }else {
+                    displayScreen.value = eval(displayScreen.value);
+                }
+            }catch (error){
+                if (error instanceof SyntaxError){
+                    alert("Sorry, there's an error in your operation syntax; operation'll be removed")
+                    displayScreen.value="";
+                }else{
+                    alert(error.type);
+                }
+            }
+        }else{
+            displayScreen.value += clickedBtn.value;
+        }
+    })
+    keys.addEventListener("mouseover", (event)=>{
+        let clickedBtn = event.target;
+        if (!clickedBtn.matches("button")){
+            return false;
+        }
+
+        if (clickedBtn.id=="ac-btn"){
+            clickedBtn.style.backgroundColor = "#d93200";
+        }else if (clickedBtn.id=="equal-btn"){
+            clickedBtn.style.backgroundColor = "#00518d";
+        }else{
+            clickedBtn.style.backgroundColor = "gray";
+        }
+    })
+    keys.addEventListener("mouseout", (event)=>{
+        let clickedBtn = event.target;
+        if (!clickedBtn.matches("button")){
+            return false;
+        }
+
+        if (clickedBtn.id=="ac-btn"){
+            clickedBtn.style.backgroundColor = "#fe3b00";
+        }else if (clickedBtn.id=="equal-btn"){
+            clickedBtn.style.backgroundColor = "#0077cf";
+        }else{
+            clickedBtn.style.backgroundColor = "white";
+        }
+    })
+
+</script>
+
+</body>
+</html>
